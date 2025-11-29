@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">NutritionDiarySecond</string>
+    <string name="registration_title">Создать аккаунт</string>
+    <string name="registration_subtitle">Заполните информацию о себе</string>
+    <string name="username_hint">Логин *</string>
+    <string name="password_hint">Пароль *</string>
+    <string name="email_hint">Email</string>
+    <string name="age_hint">Возраст *</string>
+    <string name="height_hint">Рост (см) *</string>
+    <string name="current_weight_hint">Текущий вес (кг) *</string>
+    <string name="desired_weight_hint">Цель (кг) *</string>
+    <string name="required_fields">* - обязательные поля</string>
+    <string name="register_button">Создать аккаунт</string>
+    <string name="back_button">← Назад</string>
+    <string name="registration_success">Регистрация прошла успешно!</string>
+    <string name="registration_error">Ошибка регистрации</string>
+    <string name="username_exists">Пользователь с таким логином уже существует</string>
+    <string name="fill_all_fields">Пожалуйста, заполните все обязательные поля</string>
+    <string name="invalid_age">Введите корректный возраст (1-120 лет)</string>
+    <string name="invalid_height">Введите корректный рост (1-250 см)</string>
+    <string name="invalid_weight">Введите корректный вес</string>
+</resources>
