@@ -9,6 +9,7 @@ data class DailyChallenge(
     val category: String, // "Питание", "Спорт", "Здоровье"
     val isCompleted: Boolean,
     val dateAssigned: Date
+
 ) {
     // Вычисляемое свойство для иконки
     val icon: String

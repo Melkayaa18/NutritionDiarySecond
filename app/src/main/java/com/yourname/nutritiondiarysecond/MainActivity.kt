@@ -4,24 +4,34 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.*
+import android.widget.TextView
+import com.google.android.material.card.MaterialCardView
 import com.yourname.nutritiondiarysecond.R
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
-    private lateinit var calorieProgressBar: ProgressBar
+    private lateinit var currentDate: TextView
+    private lateinit var calorieProgressBar: android.widget.ProgressBar
     private lateinit var calorieLabel: TextView
     private lateinit var proteinLabel: TextView
     private lateinit var fatLabel: TextView
     private lateinit var carbsLabel: TextView
-    private lateinit var trafficLightFrame: com.google.android.material.card.MaterialCardView
+    private lateinit var trafficLightFrame: MaterialCardView
 
-    private lateinit var breakfastButton: Button
-    private lateinit var lunchButton: Button
-    private lateinit var dinnerButton: Button
-    private lateinit var snackButton: Button
-    private lateinit var statisticsButton: Button
-    private lateinit var recipesButton: Button
+    // Быстрое добавление - теперь это MaterialCardView
+    private lateinit var breakfastCard: MaterialCardView
+    private lateinit var lunchCard: MaterialCardView
+    private lateinit var dinnerCard: MaterialCardView
+    private lateinit var snackCard: MaterialCardView
+    private lateinit var waterCard: MaterialCardView
+    private lateinit var scannerCard: MaterialCardView
+
+    // Основная навигация
+    private lateinit var statisticsCard: MaterialCardView
+    private lateinit var recipesCard: MaterialCardView
+    private lateinit var productsCard: MaterialCardView
+    private lateinit var settingsCard: MaterialCardView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,9 +40,11 @@ class MainActivity : AppCompatActivity() {
         initializeViews()
         setupClickListeners()
         loadDailyProgress()
+        updateCurrentDate()
     }
 
     private fun initializeViews() {
+        currentDate = findViewById(R.id.currentDate)
         calorieProgressBar = findViewById(R.id.calorieProgressBar)
         calorieLabel = findViewById(R.id.calorieLabel)
         proteinLabel = findViewById(R.id.proteinLabel)
@@ -40,28 +52,58 @@ class MainActivity : AppCompatActivity() {
         carbsLabel = findViewById(R.id.carbsLabel)
         trafficLightFrame = findViewById(R.id.trafficLightFrame)
 
-        breakfastButton = findViewById(R.id.breakfastButton)
-        lunchButton = findViewById(R.id.lunchButton)
-        dinnerButton = findViewById(R.id.dinnerButton)
-        snackButton = findViewById(R.id.snackButton)
-        statisticsButton = findViewById(R.id.statisticsButton)
-        recipesButton = findViewById(R.id.recipesButton)
+        // Быстрое добавление - находим как MaterialCardView
+        breakfastCard = findViewById(R.id.breakfastButton)
+        lunchCard = findViewById(R.id.lunchButton)
+        dinnerCard = findViewById(R.id.dinnerButton)
+        snackCard = findViewById(R.id.snackButton)
+        waterCard = findViewById(R.id.waterButton)
+        scannerCard = findViewById(R.id.scannerButton)
+
+        // Основная навигация
+        statisticsCard = findViewById(R.id.statisticsButton)
+        recipesCard = findViewById(R.id.recipesButton)
+        productsCard = findViewById(R.id.productsButton)
+        settingsCard = findViewById(R.id.settingsButton)
     }
 
     private fun setupClickListeners() {
-        breakfastButton.setOnClickListener { openDiaryEntry(1, "Завтрак") }
-        lunchButton.setOnClickListener { openDiaryEntry(2, "Обед") }
-        dinnerButton.setOnClickListener { openDiaryEntry(3, "Ужин") }
-        snackButton.setOnClickListener { openDiaryEntry(4, "Перекус") }
+        // Приемы пищи
+        breakfastCard.setOnClickListener { openDiaryEntry(1, "Завтрак") }
+        lunchCard.setOnClickListener { openDiaryEntry(2, "Обед") }
+        dinnerCard.setOnClickListener { openDiaryEntry(3, "Ужин") }
+        snackCard.setOnClickListener { openDiaryEntry(4, "Перекус") }
 
-        statisticsButton.setOnClickListener {
+        // Вода и сканер
+        waterCard.setOnClickListener {
+            val intent = Intent(this, WaterTrackingActivity::class.java)
+            startActivity(intent)
+        }
+
+        scannerCard.setOnClickListener {
+            val intent = Intent(this, BarcodeScannerActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Основная навигация
+        statisticsCard.setOnClickListener {
             val intent = Intent(this, StatisticsActivity::class.java)
             startActivity(intent)
         }
 
-        recipesButton.setOnClickListener {
+        recipesCard.setOnClickListener {
             val intent = Intent(this, RecipesActivity::class.java)
             startActivity(intent)
+        }
+
+        productsCard.setOnClickListener {
+            // Пока заглушка - можно создать ProductsActivity позже
+            android.widget.Toast.makeText(this, "База продуктов - скоро будет доступно", android.widget.Toast.LENGTH_SHORT).show()
+        }
+
+        settingsCard.setOnClickListener {
+            // Пока заглушка
+            android.widget.Toast.makeText(this, "Настройки - скоро будут доступны", android.widget.Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -83,18 +125,29 @@ class MainActivity : AppCompatActivity() {
 
         val progress = (calories / goal * 100).toInt()
         calorieProgressBar.progress = progress
-        calorieLabel.text = "Съедено: ${calories.toInt()}/$goal ккал"
+        calorieLabel.text = "${calories.toInt()}/$goal ккал"
 
-        proteinLabel.text = "Б: ${protein.toInt()}г"
-        fatLabel.text = "Ж: ${fat.toInt()}г"
-        carbsLabel.text = "У: ${carbs.toInt()}г"
+        proteinLabel.text = "${protein.toInt()}г"
+        fatLabel.text = "${fat.toInt()}г"
+        carbsLabel.text = "${carbs.toInt()}г"
 
         // Обновляем цвет светофора
-        when {
-            progress < 80 -> trafficLightFrame.setCardBackgroundColor(Color.GREEN)
-            progress < 100 -> trafficLightFrame.setCardBackgroundColor(Color.YELLOW)
-            else -> trafficLightFrame.setCardBackgroundColor(Color.RED)
-        }
+        updateTrafficLight(progress)
     }
 
+    private fun updateTrafficLight(progress: Int) {
+        val (color, status) = when {
+            progress < 50 -> Color.GREEN to "Норма"
+            progress < 80 -> Color.YELLOW to "Средне"
+            progress < 100 -> Color.rgb(255, 165, 0) to "Много" // Оранжевый
+            else -> Color.RED to "Перебор"
+        }
+        trafficLightFrame.setCardBackgroundColor(color)
+    }
+
+    private fun updateCurrentDate() {
+        val dateFormat = SimpleDateFormat("EEEE, d MMMM", Locale("ru"))
+        val currentDateFormatted = dateFormat.format(Date())
+        currentDate.text = currentDateFormatted.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() }
+    }
 }

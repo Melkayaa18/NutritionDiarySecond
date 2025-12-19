@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "NutritionDiarySecond"
 include(":app")
+include(":app")
  

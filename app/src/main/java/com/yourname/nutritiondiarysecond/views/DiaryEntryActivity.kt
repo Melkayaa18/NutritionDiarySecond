@@ -14,6 +14,11 @@ import com.yourname.nutritiondiarysecond.models.Product
 
 class DiaryEntryActivity : AppCompatActivity() {
 
+    // ВСЕ КОНСТАНТЫ В ОДНОМ COMPANION OBJECT
+    companion object {
+        private const val ADD_PRODUCT_REQUEST = 1001
+        private const val BARCODE_SCAN_REQUEST = 1004
+    }
     private lateinit var titleLabel: TextView
     private lateinit var productSearchBar: EditText
     private lateinit var productsRecyclerView: RecyclerView
@@ -29,7 +34,7 @@ class DiaryEntryActivity : AppCompatActivity() {
     private lateinit var addCustomProductButton: Button
     private lateinit var saveButton: Button
     private lateinit var cancelButton: Button
-
+    private lateinit var scanBarcodeButton: Button
     private var mealTypeId: Int = 0
     private var mealTypeName: String = ""
     private var selectedProduct: Product? = null
@@ -37,9 +42,7 @@ class DiaryEntryActivity : AppCompatActivity() {
     private val filteredProducts = mutableListOf<Product>()
     private lateinit var productsAdapter: ProductsAdapter
 
-    companion object {
-        private const val ADD_PRODUCT_REQUEST = 1001
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,7 +74,7 @@ class DiaryEntryActivity : AppCompatActivity() {
         addCustomProductButton = findViewById(R.id.addCustomProductButton)
         saveButton = findViewById(R.id.saveButton)
         cancelButton = findViewById(R.id.cancelButton)
-
+        scanBarcodeButton = findViewById(R.id.scanBarcodeButton)
         // Устанавливаем заголовок
         titleLabel.text = "Добавление продуктов для $mealTypeName"
 
@@ -94,6 +97,7 @@ class DiaryEntryActivity : AppCompatActivity() {
         })
     }
 
+
     private fun setupRecyclerView() {
         productsAdapter = ProductsAdapter(filteredProducts) { product ->
             onProductSelected(product)
@@ -108,9 +112,15 @@ class DiaryEntryActivity : AppCompatActivity() {
         }
 
         addCustomProductButton.setOnClickListener {
-            // ЗАМЕНА: открываем Activity для создания продукта
             val intent = Intent(this, AddCustomProductActivity::class.java)
             startActivityForResult(intent, ADD_PRODUCT_REQUEST)
+        }
+
+        // Добавляем кнопку для сканирования штрих-кода
+        val scanBarcodeButton: Button = findViewById(R.id.scanBarcodeButton)
+        scanBarcodeButton?.setOnClickListener {
+            val intent = Intent(this, BarcodeScannerActivity::class.java)
+            startActivityForResult(intent, BARCODE_SCAN_REQUEST)
         }
 
         saveButton.setOnClickListener {
@@ -121,21 +131,34 @@ class DiaryEntryActivity : AppCompatActivity() {
             finish()
         }
     }
+    // Добавьте метод для открытия сканера
+    private fun openBarcodeScanner() {
+        val intent = Intent(this, BarcodeScannerActivity::class.java)
+        startActivityForResult(intent, BARCODE_SCAN_REQUEST)
+    }
+
+    // Обновите onActivityResult для обработки сканирования
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == ADD_PRODUCT_REQUEST && resultCode == RESULT_OK) {
-            val newProduct = data?.getParcelableExtra<Product>("newProduct")
-            newProduct?.let { product ->
-                // Добавляем новый продукт в списки
-                allProducts.add(product)
-                filteredProducts.add(product)
-                productsAdapter.updateProducts(filteredProducts)
-
-                // Автоматически выбираем новый продукт
-                onProductSelected(product)
-
-                Toast.makeText(this, "Продукт \"${product.name}\" добавлен!", Toast.LENGTH_SHORT).show()
+        when (requestCode) {
+            ADD_PRODUCT_REQUEST -> {
+                if (resultCode == RESULT_OK) {
+                    val newProduct = data?.getParcelableExtra<Product>("newProduct")
+                    newProduct?.let { product ->
+                        allProducts.add(product)
+                        filteredProducts.add(product)
+                        productsAdapter.updateProducts(filteredProducts)
+                        onProductSelected(product)
+                        Toast.makeText(this, "Продукт \"${product.name}\" добавлен!", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            BARCODE_SCAN_REQUEST -> {
+                if (resultCode == RESULT_OK) {
+                    Toast.makeText(this, "Продукт из штрих-кода добавлен!", Toast.LENGTH_SHORT).show()
+                    // Здесь можно обработать результат сканирования
+                }
             }
         }
     }

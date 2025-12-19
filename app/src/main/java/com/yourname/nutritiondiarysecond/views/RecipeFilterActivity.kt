@@ -99,8 +99,8 @@ class RecipeFilterActivity : AppCompatActivity() {
             else -> null
         }
 
-        // Создаем Intent с результатами фильтрации
-        val resultIntent = Intent().apply {
+        // Переходим к FilteredRecipesActivity с параметрами фильтрации
+        val intent = Intent(this, FilteredRecipesActivity::class.java).apply {
             putExtra("category", category)
             putExtra("caloriesFrom", caloriesFromValue)
             putExtra("caloriesTo", caloriesToValue)
@@ -108,8 +108,7 @@ class RecipeFilterActivity : AppCompatActivity() {
             putExtra("difficulty", difficulty)
             putExtra("ingredients", ingredients)
         }
-
-        setResult(RESULT_OK, resultIntent)
+        startActivity(intent)
         finish()
 
         Toast.makeText(this, "Фильтры применены", Toast.LENGTH_SHORT).show()
@@ -125,4 +124,5 @@ class RecipeFilterActivity : AppCompatActivity() {
 
         Toast.makeText(this, "Фильтры сброшены", Toast.LENGTH_SHORT).show()
     }
+
 }

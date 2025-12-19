@@ -6,19 +6,21 @@ import android.os.Bundle
 import android.widget.*
 import com.yourname.nutritiondiarysecond.R
 import com.yourname.nutritiondiarysecond.models.Recipe
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.textfield.TextInputEditText
 
 class AddRecipeActivity : AppCompatActivity() {
 
-    private lateinit var recipeTitleEntry: EditText
-    private lateinit var categorySpinner: Spinner
-    private lateinit var descriptionEntry: EditText
-    private lateinit var caloriesEntry: EditText
-    private lateinit var proteinEntry: EditText
-    private lateinit var fatEntry: EditText
-    private lateinit var carbsEntry: EditText
-    private lateinit var cookingStepsEntry: EditText
-    private lateinit var saveButton: Button
-    private lateinit var cancelButton: Button
+    private lateinit var recipeTitleEntry: TextInputEditText
+    private lateinit var categorySpinner: AutoCompleteTextView
+    private lateinit var descriptionEntry: TextInputEditText
+    private lateinit var caloriesEntry: TextInputEditText
+    private lateinit var proteinEntry: TextInputEditText
+    private lateinit var fatEntry: TextInputEditText
+    private lateinit var carbsEntry: TextInputEditText
+    private lateinit var cookingStepsEntry: TextInputEditText
+    private lateinit var saveButton: MaterialButton
+    private lateinit var cancelButton: MaterialButton
     private lateinit var loadingIndicator: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,12 +58,15 @@ class AddRecipeActivity : AppCompatActivity() {
 
     private fun setupCategorySpinner() {
         val categories = arrayOf(
-            "Завтрак", "Обед", "Ужин", "Перекус", "Десерт", "Напиток", "Салат", "Супы", "Основные блюда"
+            "Завтрак", "Обед", "Ужин", "Перекус", "Десерт",
+            "Напиток", "Салат", "Супы", "Основные блюда"
         )
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, categories)
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-        categorySpinner.adapter = adapter
+        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, categories)
+        categorySpinner.setAdapter(adapter)
+
+        // Устанавливаем подсказку
+        categorySpinner.hint = "Выберите категорию"
     }
 
     private fun attemptSaveRecipe() {
@@ -72,9 +77,9 @@ class AddRecipeActivity : AppCompatActivity() {
         val fatText = fatEntry.text.toString()
         val carbsText = carbsEntry.text.toString()
         val cookingSteps = cookingStepsEntry.text.toString().trim()
-        val category = categorySpinner.selectedItem as String
+        val category = categorySpinner.text.toString().trim()
 
-        if (!validateInputs(title, caloriesText, proteinText, fatText, carbsText, cookingSteps)) {
+        if (!validateInputs(title, category, caloriesText, proteinText, fatText, carbsText, cookingSteps)) {
             return
         }
 
@@ -93,6 +98,7 @@ class AddRecipeActivity : AppCompatActivity() {
 
     private fun validateInputs(
         title: String,
+        category: String,
         caloriesText: String,
         proteinText: String,
         fatText: String,
@@ -102,6 +108,7 @@ class AddRecipeActivity : AppCompatActivity() {
         val errors = mutableListOf<String>()
 
         if (title.isEmpty()) errors.add("Введите название рецепта")
+        if (category.isEmpty()) errors.add("Выберите категорию")
         if (caloriesText.isEmpty() || caloriesText.toDoubleOrNull() == null || caloriesText.toDouble() < 0)
             errors.add("Введите корректную калорийность")
         if (proteinText.isEmpty() || proteinText.toDoubleOrNull() == null || proteinText.toDouble() < 0)
@@ -164,14 +171,16 @@ class AddRecipeActivity : AppCompatActivity() {
     }
 
     private fun setLoading(loading: Boolean) {
-        loadingIndicator.visibility = if (loading) android.view.View.VISIBLE else android.view.View.GONE
-        saveButton.isEnabled = !loading
-        cancelButton.isEnabled = !loading
-
         if (loading) {
+            loadingIndicator.visibility = android.view.View.VISIBLE
             saveButton.text = "Сохранение..."
+            saveButton.isEnabled = false
+            cancelButton.isEnabled = false
         } else {
+            loadingIndicator.visibility = android.view.View.GONE
             saveButton.text = "Сохранить рецепт"
+            saveButton.isEnabled = true
+            cancelButton.isEnabled = true
         }
     }
 

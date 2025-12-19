@@ -12,13 +12,17 @@ import com.yourname.nutritiondiarysecond.models.DailyChallenge
 class StatisticsActivity : AppCompatActivity() {
 
     private lateinit var todayCaloriesLabel: TextView
-    private lateinit var todayCaloriesProgressFill: View
-    private lateinit var todayProteinProgressFill: View
-    private lateinit var todayFatProgressFill: View
-    private lateinit var todayCarbsProgressFill: View
+    private lateinit var todayCaloriesProgressBar: ProgressBar
+    private lateinit var todayProteinProgressBar: ProgressBar
+    private lateinit var todayFatProgressBar: ProgressBar
+    private lateinit var todayCarbsProgressBar: ProgressBar
+    private lateinit var todayProteinLabel: TextView
+    private lateinit var todayFatLabel: TextView
+    private lateinit var todayCarbsLabel: TextView
+    private lateinit var todayCaloriesPercent: TextView
     private lateinit var weekStatsLabel: TextView
     private lateinit var challengesInfoLabel: TextView
-    private lateinit var challengesProgressFill: View
+    private lateinit var challengesProgressBar: ProgressBar
     private lateinit var challengesLayout: LinearLayout
     private lateinit var achievementsButton: Button
 
@@ -35,14 +39,23 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     private fun initializeViews() {
+        // Калории
         todayCaloriesLabel = findViewById(R.id.todayCaloriesLabel)
-        todayCaloriesProgressFill = findViewById(R.id.todayCaloriesProgressFill)
-        todayProteinProgressFill = findViewById(R.id.todayProteinProgressFill)
-        todayFatProgressFill = findViewById(R.id.todayFatProgressFill)
-        todayCarbsProgressFill = findViewById(R.id.todayCarbsProgressFill)
+        todayCaloriesProgressBar = findViewById(R.id.todayCaloriesProgressBar)
+        todayCaloriesPercent = findViewById(R.id.todayCaloriesPercent)
+
+        // БЖУ
+        todayProteinProgressBar = findViewById(R.id.todayProteinProgressBar)
+        todayFatProgressBar = findViewById(R.id.todayFatProgressBar)
+        todayCarbsProgressBar = findViewById(R.id.todayCarbsProgressBar)
+        todayProteinLabel = findViewById(R.id.todayProteinLabel)
+        todayFatLabel = findViewById(R.id.todayFatLabel)
+        todayCarbsLabel = findViewById(R.id.todayCarbsLabel)
+
+        // Челленджи и статистика
         weekStatsLabel = findViewById(R.id.weekStatsLabel)
         challengesInfoLabel = findViewById(R.id.challengesInfoLabel)
-        challengesProgressFill = findViewById(R.id.challengesProgressFill)
+        challengesProgressBar = findViewById(R.id.challengesProgressBar)
         challengesLayout = findViewById(R.id.challengesLayout)
         achievementsButton = findViewById(R.id.achievementsButton)
     }
@@ -54,20 +67,25 @@ class StatisticsActivity : AppCompatActivity() {
     }
 
     private fun loadStatistics() {
-        // Заглушка - временные данные
+        // Временные данные
         val calories = 850.0
         val protein = 45.0
         val fat = 30.0
         val carbs = 120.0
         val goal = 2000
 
+        // Обновляем текстовые поля
         todayCaloriesLabel.text = "Съедено: ${calories.toInt()}/$goal ккал"
+        todayCaloriesPercent.text = "${(calories / goal * 100).toInt()}%"
+        todayProteinLabel.text = "${protein.toInt()}/50г"
+        todayFatLabel.text = "${fat.toInt()}/40г"
+        todayCarbsLabel.text = "${carbs.toInt()}/200г"
 
-        // Анимируем прогресс-бары
-        animateProgressBar(todayCaloriesProgressFill, (calories / goal * 100).toInt())
-        animateProgressBar(todayProteinProgressFill, (protein / 50 * 100).toInt())
-        animateProgressBar(todayFatProgressFill, (fat / 40 * 100).toInt())
-        animateProgressBar(todayCarbsProgressFill, (carbs / 200 * 100).toInt())
+        // Устанавливаем прогресс в ProgressBar
+        todayCaloriesProgressBar.progress = (calories / goal * 100).toInt()
+        todayProteinProgressBar.progress = (protein / 50 * 100).toInt()
+        todayFatProgressBar.progress = (fat / 40 * 100).toInt()
+        todayCarbsProgressBar.progress = (carbs / 200 * 100).toInt()
 
         // Статистика за неделю
         weekStatsLabel.text = """
@@ -78,23 +96,6 @@ class StatisticsActivity : AppCompatActivity() {
             • Дней в норме: 5 из 7
             • Общий баланс БЖУ: Хороший
         """.trimIndent()
-    }
-
-    private fun animateProgressBar(progressView: View, progressPercent: Int) {
-        // Простая анимация прогресса
-        val maxWidth = when (progressView) {
-            todayCaloriesProgressFill -> 1000 // Ширина для калорий
-            else -> 300 // Ширина для БЖУ
-        }
-
-        val targetWidth = (maxWidth * progressPercent / 100).coerceAtMost(maxWidth)
-
-        // Используем post для обновления UI в основном потоке
-        progressView.post {
-            val layoutParams = progressView.layoutParams
-            layoutParams.width = targetWidth
-            progressView.layoutParams = layoutParams
-        }
     }
 
     private fun loadDailyChallenges() {
@@ -121,9 +122,7 @@ class StatisticsActivity : AppCompatActivity() {
         val progressPercent = (completedCount.toDouble() / todayChallenges.size * 100).toInt()
 
         challengesInfoLabel.text = "$completedCount/${todayChallenges.size}"
-
-        // Анимируем прогресс челленджей
-        animateProgressBar(challengesProgressFill, progressPercent)
+        challengesProgressBar.progress = progressPercent
 
         todayChallenges.forEach { challenge ->
             val challengeView = createChallengeView(challenge)
@@ -140,29 +139,34 @@ class StatisticsActivity : AppCompatActivity() {
                 setMargins(0, 0, 0, 12)
             }
 
-            // Используем стандартные цвета, пока не создадим свои
+            // Используем правильные цвета
             setCardBackgroundColor(
-                if (challenge.isCompleted) ContextCompat.getColor(context, android.R.color.holo_green_light)
-                else ContextCompat.getColor(context, android.R.color.holo_orange_light)
+                if (challenge.isCompleted) ContextCompat.getColor(context, R.color.challenge_completed)
+                else ContextCompat.getColor(context, R.color.challenge_pending)
             )
-            radius = 12f
+            radius = 16f
             cardElevation = 4f
-            strokeColor = if (challenge.isCompleted) ContextCompat.getColor(context, android.R.color.holo_green_dark)
-            else ContextCompat.getColor(context, android.R.color.holo_orange_dark)
-            strokeWidth = 2
+            strokeColor = if (challenge.isCompleted) ContextCompat.getColor(context, R.color.challenge_completed_border)
+            else ContextCompat.getColor(context, R.color.challenge_pending_border)
+            strokeWidth = 1
 
-            setContentPadding(20, 20, 20, 20)
+            setContentPadding(20, 16, 20, 16)
 
             val layout = LinearLayout(context).apply {
                 orientation = LinearLayout.HORIZONTAL
-                setPadding(0, 0, 0, 0)
+                gravity = android.view.Gravity.CENTER_VERTICAL
             }
 
             // Иконка
             val iconTextView = TextView(context).apply {
-                text = challenge.icon
+                text = challenge.icon ?: "✅"
                 textSize = 20f
-                setPadding(0, 0, 15, 0)
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginEnd = 16
+                }
             }
             layout.addView(iconTextView)
 
@@ -178,10 +182,10 @@ class StatisticsActivity : AppCompatActivity() {
 
             val titleTextView = TextView(context).apply {
                 text = challenge.title
-                textSize = 14f
+                textSize = 16f
                 setTextColor(ContextCompat.getColor(context, android.R.color.black))
                 if (challenge.isCompleted) {
-                    setTypeface(typeface, android.graphics.Typeface.ITALIC)
+                    setTypeface(typeface, android.graphics.Typeface.NORMAL)
                 } else {
                     setTypeface(typeface, android.graphics.Typeface.BOLD)
                 }
@@ -192,48 +196,35 @@ class StatisticsActivity : AppCompatActivity() {
                 text = challenge.description
                 textSize = 12f
                 setTextColor(ContextCompat.getColor(context, android.R.color.darker_gray))
-                setPadding(0, 5, 0, 0)
+                setPadding(0, 4, 0, 0)
             }
             textLayout.addView(descTextView)
 
-            val categoryTextView = TextView(context).apply {
-                text = challenge.category
-                textSize = 10f
-                setTextColor(getCategoryColor(challenge.category))
-                setTypeface(typeface, android.graphics.Typeface.BOLD)
-                setPadding(0, 5, 0, 0)
-            }
-            textLayout.addView(categoryTextView)
-
             layout.addView(textLayout)
 
-            // Чекбокс - ИСПРАВЛЕННАЯ ЧАСТЬ
+            // Чекбокс
             val checkBox = CheckBox(context).apply {
                 isChecked = challenge.isCompleted
                 setButtonTintList(android.content.res.ColorStateList.valueOf(
                     ContextCompat.getColor(context, android.R.color.holo_green_dark)
                 ))
                 setOnCheckedChangeListener { _, isChecked ->
-                    // Находим индекс этого челленджа в списке и обновляем его
                     val challengeIndex = todayChallenges.indexOfFirst { it.challengeId == challenge.challengeId }
                     if (challengeIndex != -1) {
                         todayChallenges[challengeIndex] = challenge.copy(isCompleted = isChecked)
-                        displayChallenges() // Обновляем отображение
+                        displayChallenges()
                     }
+                }
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    marginStart = 8
                 }
             }
             layout.addView(checkBox)
 
             addView(layout)
-        }
-    }
-
-    private fun getCategoryColor(category: String): Int {
-        return when (category) {
-            "Питание" -> ContextCompat.getColor(this, android.R.color.holo_orange_dark)
-            "Спорт" -> ContextCompat.getColor(this, android.R.color.holo_blue_dark)
-            "Здоровье" -> ContextCompat.getColor(this, android.R.color.holo_purple)
-            else -> ContextCompat.getColor(this, android.R.color.darker_gray)
         }
     }
 
@@ -248,7 +239,6 @@ class StatisticsActivity : AppCompatActivity() {
         )
 
         val randomTip = tips.random()
-
         Toast.makeText(this, randomTip, Toast.LENGTH_LONG).show()
     }
 }

@@ -1,48 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFBF5"
-    android:padding="30dp"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:padding="24dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <!-- Заголовок с иконкой -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:gravity="center"
-            android:layout_marginBottom="30dp">
+            android:orientation="vertical"
+            android:layout_marginBottom="40dp"
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="🍎"
-                android:textSize="40sp" />
+                android:textSize="56sp"
+                android:layout_marginBottom="8dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Дневник питания"
                 android:textColor="#5D4037"
-                android:textSize="32sp"
+                android:textSize="28sp"
                 android:textStyle="bold"
-                android:layout_marginTop="10dp" />
+                android:letterSpacing="0.02"
+                android:layout_marginBottom="4dp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Ваш персональный помощник в питании"
                 android:textColor="#8D6E63"
                 android:textSize="16sp"
-                android:layout_marginTop="5dp" />
+                android:gravity="center"
+                android:lineSpacingExtra="4dp" />
 
         </LinearLayout>
 
@@ -50,48 +55,73 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="4dp">
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white"
+            android:layout_marginHorizontal="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="25dp">
+                android:padding="28dp">
 
                 <!-- Поля ввода -->
-                <LinearLayout
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_marginBottom="20dp">
+                    android:layout_marginBottom="16dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxStrokeColor="#FF9E6D"
+                    app:hintTextColor="#8D6E63"
+                    app:boxBackgroundColor="#FFFBF5">
 
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/usernameEntry"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="52dp"
                         android:hint="Логин"
-                        android:background="@drawable/edit_text_background"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
                         android:textColor="#5D4037"
-                        android:textSize="16dp"
-                        android:layout_marginBottom="15dp" />
+                        android:textSize="16sp"
+                        android:paddingVertical="14dp"
+                        android:importantForAccessibility="yes"
+                        tools:ignore="LabelFor" />
 
-                    <EditText
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    app:boxCornerRadiusTopStart="16dp"
+                    app:boxCornerRadiusTopEnd="16dp"
+                    app:boxCornerRadiusBottomStart="16dp"
+                    app:boxCornerRadiusBottomEnd="16dp"
+                    app:boxStrokeColor="#FF9E6D"
+                    app:hintTextColor="#8D6E63"
+                    app:boxBackgroundColor="#FFFBF5">
+
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/passwordEntry"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="wrap_content"
+                        android:minHeight="52dp"
                         android:hint="Пароль"
-                        android:background="@drawable/edit_text_background"
-                        android:paddingStart="15dp"
-                        android:paddingEnd="15dp"
                         android:textColor="#5D4037"
-                        android:textSize="16dp"
-                        android:inputType="textPassword" />
+                        android:textSize="16sp"
+                        android:paddingVertical="14dp"
+                        android:inputType="textPassword"
+                        android:importantForAccessibility="yes"
+                        tools:ignore="LabelFor" />
 
-                </LinearLayout>
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <!-- Основные кнопки -->
                 <LinearLayout
@@ -99,37 +129,43 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/loginButton"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="56dp"
                         android:text="Войти"
                         android:textSize="16sp"
                         android:textStyle="bold"
-                        app:cornerRadius="12dp"
-                        app:backgroundColor="#FF9E6D" />
+                        android:letterSpacing="0.02"
+                        app:cornerRadius="16dp"
+                        app:backgroundTint="#FF9E6D"
+                        android:textColor="#FFFBF5"
+                        app:elevation="2dp"
+                        style="?attr/materialButtonOutlinedStyle" />
 
                     <ProgressBar
                         android:id="@+id/loadingIndicator"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:visibility="gone" />
+                        android:layout_marginTop="12dp"
+                        android:visibility="gone"
+                        android:indeterminateTint="#FF9E6D" />
 
-                    <Button
+                    <com.google.android.material.button.MaterialButton
                         android:id="@+id/registerButton"
                         android:layout_width="match_parent"
-                        android:layout_height="45dp"
+                        android:layout_height="52dp"
                         android:text="Создать аккаунт"
-                        android:textSize="14sp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
-                        android:background="@android:color/transparent"
-                        android:textColor="#4DB6AC"
+                        android:letterSpacing="0.01"
                         android:layout_marginTop="12dp"
-                        app:cornerRadius="12dp"
+                        app:cornerRadius="16dp"
                         app:strokeColor="#4DB6AC"
-                        app:strokeWidth="2dp" />
+                        app:strokeWidth="1.5dp"
+                        android:textColor="#4DB6AC"
+                        style="?attr/materialButtonOutlinedStyle" />
 
                 </LinearLayout>
 
@@ -141,37 +177,44 @@
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
-            app:cardBackgroundColor="#E3F2FD"
-            app:cardCornerRadius="15dp"
-            app:cardElevation="2dp">
+            android:layout_marginBottom="32dp"
+            app:cardBackgroundColor="#E8F5F3"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp"
+            android:layout_marginHorizontal="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="20dp"
-                android:gravity="center">
+                android:gravity="center"
+                android:padding="24dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Хотите просто посмотреть?"
-                    android:textColor="#0288D1"
-                    android:textSize="14sp"
+                    android:textColor="#00796B"
+                    android:textSize="15sp"
                     android:textStyle="bold"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_marginBottom="12dp"
+                    android:letterSpacing="0.01" />
 
-                <Button
+                <com.google.android.material.button.MaterialButton
                     android:id="@+id/skipButton"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="48dp"
                     android:text="Попробовать как гость →"
                     android:textSize="14sp"
                     android:textStyle="bold"
-                    android:background="@android:color/transparent"
+                    android:letterSpacing="0.01"
+                    app:cornerRadius="12dp"
+                    app:strokeColor="#0288D1"
+                    app:strokeWidth="1dp"
                     android:textColor="#0288D1"
-                    app:cornerRadius="10dp" />
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    style="?attr/materialButtonOutlinedStyle" />
 
             </LinearLayout>
 
@@ -183,7 +226,9 @@
             android:layout_height="wrap_content"
             android:text="Начните свой путь к здоровому питанию сегодня!"
             android:textColor="#8D6E63"
-            android:textSize="12sp" />
+            android:textSize="13sp"
+            android:letterSpacing="0.01"
+            android:lineSpacingExtra="2dp" />
 
     </LinearLayout>
 
