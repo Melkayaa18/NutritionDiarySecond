@@ -426,6 +426,7 @@
                     android:layout_height="56dp"
                     android:layout_weight="1.5"
                     android:text="Сохранить рецепт"
+                    android:textColor="@color/text_secondary"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     android:letterSpacing="0.02"

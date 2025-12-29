@@ -5,10 +5,11 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <!-- Добавьте эту строку для разрешения CAMERA -->
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
 
+    <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <!-- не было android:name=".NutritionApp"-->
     <application
+        android:name=".NutritionApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,7 +18,6 @@
         android:theme="@style/Theme.NutritionDiarySecond"
         tools:targetApi="31">
 
-        <!-- Сделаем LoginActivity главным (ПЕРВЫМ) -->
         <activity
             android:name=".views.LoginActivity"
             android:exported="true">
@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
 
-        <!-- Вторая запись MainActivity (без intent-filter) -->
+
         <activity
             android:name=".views.MainActivity"
             android:exported="false" />
