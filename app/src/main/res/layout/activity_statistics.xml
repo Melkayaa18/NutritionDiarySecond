@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFBF5"
+    android:fillViewport="true"
+    android:padding="24dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Заголовок -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            app:cardBackgroundColor="#FF9E6D"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            app:strokeColor="#E65100"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📊"
+                    android:textSize="32sp"
+                    android:layout_marginEnd="16dp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Ваша статистика питания"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.01"
+                    android:lineSpacingExtra="4dp" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Сегодняшний прогресс -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:strokeColor="#FFE0B2"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="28dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="24dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📅"
+                        android:textSize="24sp"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Сегодня"
+                        android:textColor="#5D4037"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.01" />
+
+                    <TextView
+                        android:id="@+id/todayDateLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="15 дек"
+                        android:textColor="#8D6E63"
+                        android:textSize="14sp"
+                        android:letterSpacing="0.01" />
+
+                </LinearLayout>
+
+                <!-- Калории -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="28dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="12dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🔥"
+                                android:textSize="20sp"
+                                android:layout_marginEnd="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Калории"
+                                android:textColor="#FF6B35"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.01" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/todayCaloriesLabel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0 / 2000 ккал"
+                            android:textColor="#8D6E63"
+                            android:textSize="14sp"
+                            android:letterSpacing="0.01" />
+
+                    </LinearLayout>
+
+                    <!-- Прогресс-бар для калорий -->
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/todayCaloriesProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:progress="50"
+                        android:max="100"
+                        android:progressTint="#FF6B35"
+                        android:progressBackgroundTint="#FFE0B2"
+                        android:minHeight="12dp"
+                        android:importantForAccessibility="no"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:id="@+id/todayCaloriesPercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textColor="#FF6B35"
+                        android:textSize="12sp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="6dp"
+                        android:letterSpacing="0.01" />
+
+                </LinearLayout>
+
+                <!-- БЖУ -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="БЖУ (Белки, Жиры, Углеводы)"
+                        android:textColor="#5D4037"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.01"
+                        android:layout_marginBottom="16dp" />
+
+                    <GridLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:columnCount="3"
+                        android:rowCount="2"
+                        android:alignmentMode="alignBounds"
+                        android:columnOrderPreserved="false"
+                        android:useDefaultMargins="true">
+
+                        <!-- Белки -->
+                        <LinearLayout
+                            android:id="@+id/todayProteinProgressFill"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:layout_marginEnd="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🥩"
+                                android:textSize="24sp"
+                                android:layout_marginBottom="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Белки"
+                                android:textColor="#388E3C"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.01"
+                                android:layout_marginBottom="8dp" />
+
+                            <androidx.core.widget.ContentLoadingProgressBar
+                                android:id="@+id/todayProteinProgressBar"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="8dp"
+                                android:progress="30"
+                                android:max="100"
+                                android:progressTint="#4CAF50"
+                                android:progressBackgroundTint="#C8E6C9"
+                                android:minHeight="8dp"
+                                android:importantForAccessibility="no"
+                                tools:ignore="UnusedAttribute" />
+
+                            <TextView
+                                android:id="@+id/todayProteinLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0 / 50г"
+                                android:textColor="#66BB6A"
+                                android:textSize="11sp"
+                                android:layout_marginTop="6dp"
+                                android:letterSpacing="0.01" />
+
+                        </LinearLayout>
+
+                        <!-- Жиры -->
+                        <LinearLayout
+                            android:id="@+id/todayFatProgressFill"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:layout_marginHorizontal="6dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🥑"
+                                android:textSize="24sp"
+                                android:layout_marginBottom="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Жиры"
+                                android:textColor="#F57C00"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.01"
+                                android:layout_marginBottom="8dp" />
+
+                            <androidx.core.widget.ContentLoadingProgressBar
+                                android:id="@+id/todayFatProgressBar"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="8dp"
+                                android:progress="20"
+                                android:max="100"
+                                android:progressTint="#FF9800"
+                                android:progressBackgroundTint="#FFE0B2"
+                                android:minHeight="8dp"
+                                android:importantForAccessibility="no"
+                                tools:ignore="UnusedAttribute" />
+
+                            <TextView
+                                android:id="@+id/todayFatLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0 / 40г"
+                                android:textColor="#FFA726"
+                                android:textSize="11sp"
+                                android:layout_marginTop="6dp"
+                                android:letterSpacing="0.01" />
+
+                        </LinearLayout>
+
+                        <!-- Углеводы -->
+                        <LinearLayout
+                            android:id="@+id/todayCarbsProgressFill"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_columnWeight="1"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:layout_marginStart="12dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="🍚"
+                                android:textSize="24sp"
+                                android:layout_marginBottom="8dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Углеводы"
+                                android:textColor="#1976D2"
+                                android:textSize="13sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.01"
+                                android:layout_marginBottom="8dp" />
+
+                            <androidx.core.widget.ContentLoadingProgressBar
+                                android:id="@+id/todayCarbsProgressBar"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="8dp"
+                                android:progress="60"
+                                android:max="100"
+                                android:progressTint="#2196F3"
+                                android:progressBackgroundTint="#BBDEFB"
+                                android:minHeight="8dp"
+                                android:importantForAccessibility="no"
+                                tools:ignore="UnusedAttribute" />
+
+                            <TextView
+                                android:id="@+id/todayCarbsLabel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="0 / 200г"
+                                android:textColor="#42A5F5"
+                                android:textSize="11sp"
+                                android:layout_marginTop="6dp"
+                                android:letterSpacing="0.01" />
+
+                        </LinearLayout>
+
+                    </GridLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Статистика за неделю -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="28dp"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:strokeColor="#FFE0B2"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="28dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📈"
+                        android:textSize="24sp"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="За неделю"
+                        android:textColor="#5D4037"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.01" />
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/weekStatsLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Среднее потребление за 7 дней:\n• Калории: 1850 ккал/день\n• Белки: 45г/день\n• Жиры: 35г/день\n• Углеводы: 180г/день\n\nЛучший день: Понедельник"
+                    android:textColor="#8D6E63"
+                    android:textSize="14sp"
+                    android:lineSpacingExtra="8dp"
+                    android:letterSpacing="0.01" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Челленджи -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="24dp"
+            app:cardElevation="8dp"
+            app:cardBackgroundColor="@android:color/white"
+            app:strokeColor="#FFE0B2"
+            app:strokeWidth="1dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="28dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="🎯"
+                        android:textSize="24sp"
+                        android:layout_marginEnd="12dp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Челлендж на сегодня"
+                        android:textColor="#5D4037"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.01" />
+
+                    <TextView
+                        android:id="@+id/challengesInfoLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0/3"
+                        android:textColor="#8D6E63"
+                        android:textSize="14sp"
+                        android:letterSpacing="0.01" />
+
+                </LinearLayout>
+
+                <!-- Прогресс челленджей -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="24dp">
+
+                    <TextView
+                        android:id="@+id/challengesProgressFill"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Прогресс выполнения"
+                        android:textColor="#5D4037"
+                        android:textSize="14sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.01"
+                        android:layout_marginBottom="12dp" />
+
+                    <androidx.core.widget.ContentLoadingProgressBar
+                        android:id="@+id/challengesProgressBar"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="12dp"
+                        android:progress="0"
+                        android:max="100"
+                        android:progressTint="#4DB6AC"
+                        android:progressBackgroundTint="#B2DFDB"
+                        android:minHeight="12dp"
+                        android:importantForAccessibility="no"
+                        tools:ignore="UnusedAttribute" />
+
+                    <TextView
+                        android:id="@+id/challengesProgressPercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0%"
+                        android:textColor="#4DB6AC"
+                        android:textSize="12sp"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="6dp"
+                        android:letterSpacing="0.01" />
+
+                </LinearLayout>
+
+                <!-- Список челленджей -->
+                <LinearLayout
+                    android:id="@+id/challengesLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginBottom="28dp">
+
+                    <!-- Пример челленджа (будет заполняться динамически) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        app:cardCornerRadius="16dp"
+                        app:cardElevation="2dp"
+                        app:cardBackgroundColor="#E8F5E9"
+                        app:strokeColor="#81C784"
+                        app:strokeWidth="1dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:padding="16dp">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="✅"
+                                android:textSize="20sp"
+                                android:layout_marginEnd="12dp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Выпить 2 литра воды"
+                                android:textColor="#2E7D32"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.01"
+                                android:lineSpacingExtra="2dp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="+10 очков"
+                                android:textColor="#4CAF50"
+                                android:textSize="12sp"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.01"
+                                android:background="#C8E6C9"
+                                android:paddingHorizontal="8dp"
+                                android:paddingVertical="4dp"
+                                android:gravity="center"
+                                app:cornerRadius="8dp" />
+
+                        </LinearLayout>
+
+                    </com.google.android.material.card.MaterialCardView>
+
+                </LinearLayout>
+
+                <!-- Кнопка совета -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/achievementsButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="56dp"
+                    android:text="💡 Получить совет"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.02"
+                    app:cornerRadius="16dp"
+                    app:backgroundTint="#4DB6AC"
+                    android:textColor="#FFFFFF"
+                    app:elevation="4dp"
+                    app:iconTint="#FFFFFF"
+                    app:iconPadding="8dp"
+                    style="?attr/materialButtonOutlinedStyle" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Отступ снизу -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
+
+    </LinearLayout>
+
+</ScrollView>
