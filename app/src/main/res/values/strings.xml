@@ -19,4 +19,4 @@
     <string name="invalid_age">Введите корректный возраст (1-120 лет)</string>
     <string name="invalid_height">Введите корректный рост (1-250 см)</string>
     <string name="invalid_weight">Введите корректный вес</string>
-</resources>
+</resources> <!--аа-->

@@ -21,4 +21,4 @@ data class Product(
     val displayName: String
         get() = "$name (${caloriesPer100g} ккал/100г)"
 }
-
+//аа

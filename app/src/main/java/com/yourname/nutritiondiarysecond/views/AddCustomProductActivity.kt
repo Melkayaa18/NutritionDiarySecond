@@ -8,7 +8,7 @@ import com.yourname.nutritiondiarysecond.R
 import com.yourname.nutritiondiarysecond.models.Product
 
 class AddCustomProductActivity : AppCompatActivity() {
-
+    //аа
     private lateinit var productNameEntry: EditText
     private lateinit var caloriesEntry: EditText
     private lateinit var proteinEntry: EditText

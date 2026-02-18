@@ -7,4 +7,4 @@ data class DailySummaryResponse(
     val totalFat: Double,
     val totalCarbs: Double,
     val challenges: List<DailyChallenge> = emptyList()
-)
+)//аа

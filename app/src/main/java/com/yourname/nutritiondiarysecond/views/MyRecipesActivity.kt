@@ -84,7 +84,7 @@ class MyRecipesActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-
+    //аа
     private fun loadMyRecipes() {
         // Заглушка - временные данные
         allRecipes.clear()

@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class WaterTrackingActivity : AppCompatActivity() {
-
+    //аа
     private lateinit var waterProgressText: TextView
     private lateinit var waterProgressFill: ImageView
     private lateinit var waterCenterText: TextView

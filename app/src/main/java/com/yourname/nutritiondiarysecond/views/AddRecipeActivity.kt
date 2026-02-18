@@ -162,7 +162,7 @@ class AddRecipeActivity : AppCompatActivity() {
     }
 
     private fun generateRecipeId(): Int = (100000..999999).random()
-
+    //аа
     private fun setLoading(loading: Boolean) {
         if (loading) {
             loadingIndicator.visibility = android.view.View.VISIBLE

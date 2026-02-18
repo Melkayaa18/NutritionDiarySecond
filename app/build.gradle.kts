@@ -10,7 +10,7 @@ android {
     compileSdk {
         version = release(36)
     }
-
+        //aa
     defaultConfig {
         applicationId = "com.yourname.nutritiondiarysecond"
         minSdk = 23

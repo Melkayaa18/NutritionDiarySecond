@@ -52,7 +52,7 @@ class LoginActivity : AppCompatActivity() {
         }
         skipButton.setOnClickListener { loginAsGuest() }
     }
-
+    //аа
     private fun attemptLogin() {
         val username = usernameEntry.text.toString().trim()
         val password = passwordEntry.text.toString()

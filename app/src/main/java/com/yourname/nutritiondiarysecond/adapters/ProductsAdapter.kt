@@ -8,7 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.yourname.nutritiondiarysecond.R
 import com.yourname.nutritiondiarysecond.models.Product
-
+//аа
 class ProductsAdapter(
     private var products: List<Product>,
     private val onProductClick: (Product) -> Unit

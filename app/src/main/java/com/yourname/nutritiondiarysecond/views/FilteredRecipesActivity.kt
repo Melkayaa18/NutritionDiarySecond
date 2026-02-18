@@ -33,7 +33,7 @@ class FilteredRecipesActivity : AppCompatActivity() {
     private var maxTime: Int? = null
     private var difficulty: String? = null
     private var ingredients: String? = null
-
+    //аа
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_filtered_recipes)

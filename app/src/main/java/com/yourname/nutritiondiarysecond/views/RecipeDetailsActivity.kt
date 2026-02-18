@@ -89,7 +89,7 @@ class RecipeDetailsActivity : AppCompatActivity() {
         // Заглушка - добавление рецепта в дневник
         android.widget.Toast.makeText(this, "Рецепт добавлен в дневник!", android.widget.Toast.LENGTH_SHORT).show()
     }
-
+    //аа
     private fun editRecipe() {
         // Заглушка - переход к редактированию рецепта
         android.widget.Toast.makeText(this, "Редактирование рецепта", android.widget.Toast.LENGTH_SHORT).show()

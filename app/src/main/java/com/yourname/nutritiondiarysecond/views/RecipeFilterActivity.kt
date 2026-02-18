@@ -49,7 +49,7 @@ class RecipeFilterActivity : AppCompatActivity() {
             resetFilters()
         }
     }
-
+    //аа
     private fun setupCategorySpinner() {
         val categories = arrayOf(
             "Все категории", "Завтрак", "Обед", "Ужин", "Перекус",

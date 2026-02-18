@@ -12,4 +12,4 @@
     app:closeIconTint="@color/chip_text"
     app:chipStrokeColor="@color/primary_color"
     app:chipStrokeWidth="1dp"
-    app:chipCornerRadius="16dp" />
+    app:chipCornerRadius="16dp" /> <!--аа-->

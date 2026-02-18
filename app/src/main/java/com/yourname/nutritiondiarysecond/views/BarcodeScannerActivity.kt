@@ -183,7 +183,7 @@ class BarcodeScannerActivity : AppCompatActivity() {
                                         runOnUiThread {
                                             handleBarcodeResult(barcodeValue)
                                         }
-                                    }
+                                    }//аа
                                 }
                                 else -> {
                                     // Другие типы штрих-кодов

@@ -21,7 +21,7 @@ class CategoryRecipesActivity : AppCompatActivity() {
     private lateinit var recipesAdapter: RecipesAdapter
     private val recipes = mutableListOf<Recipe>()
     private var currentCategory = ""
-
+    //аа
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category_recipes)

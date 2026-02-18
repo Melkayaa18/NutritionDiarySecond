@@ -147,4 +147,5 @@ class MainActivity : AppCompatActivity() {
             if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
         }
     }
+    //аа
 }

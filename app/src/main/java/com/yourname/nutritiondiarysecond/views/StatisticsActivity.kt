@@ -8,7 +8,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import com.yourname.nutritiondiarysecond.R
 import com.yourname.nutritiondiarysecond.models.DailyChallenge
-
+//аа
 class StatisticsActivity : AppCompatActivity() {
 
     private lateinit var todayCaloriesLabel: TextView

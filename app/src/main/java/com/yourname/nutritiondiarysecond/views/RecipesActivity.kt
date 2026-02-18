@@ -66,7 +66,7 @@ class RecipesActivity : AppCompatActivity() {
             val intent = Intent(this, AddRecipeActivity::class.java)
             startActivity(intent)
         }
-
+//аа
         randomRecipeButton.setOnClickListener {
             loadDailyRecipe()
             Toast.makeText(this, "🎲 Рецепт дня обновлен!", Toast.LENGTH_SHORT).show()

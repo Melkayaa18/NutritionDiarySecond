@@ -18,7 +18,7 @@ class DiaryEntryActivity : AppCompatActivity() {
         private const val ADD_PRODUCT_REQUEST = 1001
         private const val BARCODE_SCAN_REQUEST = 1004
     }
-
+    //аа
     private lateinit var titleLabel: TextView
     private lateinit var productSearchBar: EditText
     private lateinit var productsRecyclerView: RecyclerView

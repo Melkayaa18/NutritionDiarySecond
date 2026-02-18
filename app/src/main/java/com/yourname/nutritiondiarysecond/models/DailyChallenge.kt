@@ -1,7 +1,7 @@
 package com.yourname.nutritiondiarysecond.models
 
 import java.util.Date
-
+//аа
 data class DailyChallenge(
     val challengeId: Int,
     val title: String,

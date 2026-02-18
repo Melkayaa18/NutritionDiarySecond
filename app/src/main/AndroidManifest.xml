@@ -7,6 +7,7 @@
 
 
     <uses-feature android:name="android.hardware.camera" android:required="false" />
+    <!-- ужас какой-->
     <!-- не было android:name=".NutritionApp"-->
     <application
 

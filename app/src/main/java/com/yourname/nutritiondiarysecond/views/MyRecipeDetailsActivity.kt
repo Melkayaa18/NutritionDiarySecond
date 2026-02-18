@@ -81,7 +81,7 @@ class MyRecipeDetailsActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
     }
-
+    //аа
     private fun deleteRecipe() {
         android.app.AlertDialog.Builder(this)
             .setTitle("Удаление рецепта")

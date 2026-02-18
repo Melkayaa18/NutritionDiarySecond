@@ -30,7 +30,7 @@
                 android:textStyle="bold"
                 android:gravity="center"
                 android:padding="20dp" />
-
+            <!--аа-->
         </com.google.android.material.card.MaterialCardView>
 
         <!-- Форма продукта -->

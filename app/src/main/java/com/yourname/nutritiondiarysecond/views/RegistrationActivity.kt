@@ -184,7 +184,7 @@ class RegistrationActivity : AppCompatActivity() {
             button.animate().scaleX(1f).scaleY(1f).setDuration(100).start()
         }.start()
     }
-
+    //аа
     private fun animateShake(view: android.view.View) {
         val shake = AnimationUtils.loadAnimation(this, R.anim.shake)
         view.startAnimation(shake)

@@ -15,4 +15,4 @@ data class DiaryEntry(
     val carbs: Double,
     val productName: String,
     val mealTypeName: String
-)
+)//аа
